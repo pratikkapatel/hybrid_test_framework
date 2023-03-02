@@ -21,6 +21,7 @@ class TestLoginUI:
 
     def test_header(self):
         act_header = self.driver.find_element(By.XPATH, "//h5[normalize-space()='Login']").text
+
         assert_that("Login").is_equal_to(act_header)
 
 
