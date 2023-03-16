@@ -3,15 +3,20 @@ from assertpy import assert_that
 from selenium.webdriver.common.by import By
 
 from base.webdriver_listener import WebDriverWrapper
+from pages.login_page import LoginPage
 from utilities import data_source
 
 class TestLogin(WebDriverWrapper):
     def test_valid_login(self):
-        self.driver.find_element(By.NAME, "username").send_keys("Admin")
-        self.driver.find_element(By.NAME, "password").send_keys("admin123")
-        self.driver.find_element(By.XPATH, "//button[normalize-space()='Login']").click()
-        actual_text = self.driver.find_element(By.XPATH, "//h6[normalize-space()='Dashboard']").text
-        assert_that("Dashboard").is_equal_to(actual_text)
+       # self.driver.find_element(By.NAME, "username").send_keys("Admin")
+       # self.driver.find_element(By.NAME, "password").send_keys("admin123")
+       login_page = LoginPage(self.driver)
+       login_page.enter_username("Admin")
+       login_page.enter_password("admin123")
+
+       self.driver.find_element(By.XPATH, "//button[normalize-space()='Login']").click()
+       actual_text = self.driver.find_element(By.XPATH, "//h6[normalize-space()='Dashboard']").text
+       assert_that("Dashboard").is_equal_to(actual_text)
 
     @pytest.mark.parametrize("username, password, expected_error", data_source.test_invalid_login_data)
     def test_invalid_login(self, username, password, expected_error):
