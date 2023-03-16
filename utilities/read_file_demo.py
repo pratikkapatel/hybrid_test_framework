@@ -34,3 +34,13 @@ print(df)
 print(df.values.tolist())
 
 print(df.get(["User Name"]))
+
+print("*"*100)
+print("*"*100)
+print("*"*100)
+
+"""read json file"""
+dic=pandas.read_json(path_or_buf="../test_data/data.json",typ="dictionary")
+print(dic)
+print(dic['browser'])
+print(dic[1])
